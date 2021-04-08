@@ -209,6 +209,9 @@ func (k *k8sClient) GetClusterStatus() (clusterStatus *ClusterStatus, err error)
 }
 
 func (k *k8sClient) UpdateReplicas(expReplicas int32) (prevRelicas int32, err error) {
+	if k.target.kind == HPAKind {
+		return k.updateReplicasHPA(expReplicas)
+	}
 	prevRelicas, err = k.updateReplicasAppsV1(expReplicas)
 	if err == nil || !apierrors.IsForbidden(err) {
 		return prevRelicas, err

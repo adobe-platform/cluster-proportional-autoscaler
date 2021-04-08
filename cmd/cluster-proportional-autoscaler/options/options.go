@@ -82,6 +82,7 @@ func isTargetFormatValid(target string) bool {
 	}
 	if !strings.HasPrefix(target, "deployment/") &&
 		!strings.HasPrefix(target, "replicationcontroller/") &&
+		!strings.HasPrefix(target, "horizontalpodautoscaler/") &&
 		!strings.HasPrefix(target, "replicaset/") {
 		glog.Errorf("Target format error. Please use deployment/*, replicationcontroller/* or replicaset/* (not case sensitive).")
 		return false
